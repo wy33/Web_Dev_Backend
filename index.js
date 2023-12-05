@@ -26,6 +26,8 @@ const syncDB = async () => {
 }
 
 const configureApp = async () => {
+  app.use(express.json());
+
   app.get('/', (req, res) => {
     res.send('Hello World! (root)')
   });
