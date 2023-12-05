@@ -4,26 +4,22 @@ const Sequelize = require('sequelize');
 // Import connected Sequelize instance
 const db = require('../sequelizeORM');
 
-const Anime = db.define('anime', {
+const Author = db.define('author', {
     id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         primaryKey: true
         
     },
-    title: {
+    first_name: {
         type: Sequelize.STRING
     },
-    author_id: {
-        type: Sequelize.INTEGER
-    },
-    genre: {
+    last_name: {
         type: Sequelize.STRING
     },
-    rating: {
-        type: Sequelize.SMALLINT
-
+    genres: {
+        type: Sequelize.ARRAY(Sequelize.STRING)
     }
 });
 
-module.exports = Anime;
+module.exports = Author;
