@@ -11,4 +11,14 @@ router.get('/', asyncHandler(async (req, res) => {
     res.status(200).json(anime);
 }));
 
+router.get('/:title', asyncHandler(async (req, res) => {
+    console.log(req);
+    let anime = await Anime.findAll({
+        where: {
+            title: req.query.title
+        }
+    });
+    res.status(201).json(anime);
+}));
+
 module.exports = router;

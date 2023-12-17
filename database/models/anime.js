@@ -6,7 +6,7 @@ const db = require('../sequelizeORM');
 
 const Anime = db.define('anime', {
     id: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER,//Sequelize.UUID
         allowNull: false,
         primaryKey: true
         
