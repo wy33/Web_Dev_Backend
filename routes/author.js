@@ -2,7 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 
-const { Anime, Author, Manga } = require('../database/models');
+const { Author } = require('../database/models');
 
 const asyncHandler = require('express-async-handler');
 
@@ -11,52 +11,39 @@ router.get('/', asyncHandler(async (req, res) => {
     res.status(200).json(author);
 }));
 
-router.get('/:name', asyncHandler(async (req, res) => {
+router.get('/:query', asyncHandler(async (req, res) => {
     console.log(req);
 
+    // Declare object that will hold the query
     const queryObj = {};
 
-
-    if(req.query.hasOwnProperty('first_name')) {
-        queryObj.first_name = req.query.first_name
+    // Determine the WHERE condition from the request parameters
+    if (req.query.hasOwnProperty('id')) {
+        queryObj.id = req.query.id;
     }
-    if(req.query.hasOwnProperty('last_name')) {
+    if (req.query.hasOwnProperty('first_name')) {
+        queryObj.first_name = req.query.first_name;
+    }
+    if (req.query.hasOwnProperty('last_name')) {
         queryObj.last_name = req.query.last_name;
     }
-    
 
+    // Query the author table
     let author = await Author.findAll({
         where: queryObj
-        // where: {
-        //     first_name: req.query.first_name,
-        //     last_name: req.query.last_name
-        // }
     });
-    res.status(201).json(author);
 
-    // console.log(typeof(obj));
-    // console.log(obj.hasOwnProperty('last_name'));
+    res.status(200).json(author);
 }));
 
 // router.get('/:id', asyncHandler(async (req, res) => {
-//     console.log(req);
-//     let author = await Author.findAll({
+//     let author1 = await Author.findAll({
 //         where: {
-//             id: req.query.id
+//             id: 1
 //         }
 //     });
-//     res.status(201).json(author);
-// }));
 
-// router.get('/:lastname', asyncHandler(async (req, res) => {
-//     console.log(req);
-//     // let author = await Author.findAll({
-//     //     where: {
-//     //         first_name: 'test',
-//     //         last_name: req.query.last_name
-//     //     }
-//     // });
-//     // res.status(201).json(author);
+//     res.status(200).json(author1);
 // }));
 
 router.post('/', (req, res, next) => {
@@ -64,8 +51,6 @@ router.post('/', (req, res, next) => {
     Author.create(req.body)
         .then(createdAuthor => res.status(201).json(createdAuthor))
         .catch(err => next(err));
-    // res.sendStatus(201);
-
 });
 
 module.exports = router;
