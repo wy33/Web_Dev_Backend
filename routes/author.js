@@ -13,13 +13,29 @@ router.get('/', asyncHandler(async (req, res) => {
 
 router.get('/:name', asyncHandler(async (req, res) => {
     console.log(req);
+
+    const queryObj = {};
+
+
+    if(req.query.hasOwnProperty('first_name')) {
+        queryObj.first_name = req.query.first_name
+    }
+    if(req.query.hasOwnProperty('last_name')) {
+        queryObj.last_name = req.query.last_name;
+    }
+    
+
     let author = await Author.findAll({
-        where: {
-            first_name: req.query.first_name,
-            last_name: req.query.last_name
-        }
+        where: queryObj
+        // where: {
+        //     first_name: req.query.first_name,
+        //     last_name: req.query.last_name
+        // }
     });
     res.status(201).json(author);
+
+    // console.log(typeof(obj));
+    // console.log(obj.hasOwnProperty('last_name'));
 }));
 
 // router.get('/:id', asyncHandler(async (req, res) => {
@@ -32,16 +48,16 @@ router.get('/:name', asyncHandler(async (req, res) => {
 //     res.status(201).json(author);
 // }));
 
-router.get('/:lastname', asyncHandler(async (req, res) => {
-    console.log(req);
-    // let author = await Author.findAll({
-    //     where: {
-    //         first_name: 'test',
-    //         last_name: req.query.last_name
-    //     }
-    // });
-    // res.status(201).json(author);
-}));
+// router.get('/:lastname', asyncHandler(async (req, res) => {
+//     console.log(req);
+//     // let author = await Author.findAll({
+//     //     where: {
+//     //         first_name: 'test',
+//     //         last_name: req.query.last_name
+//     //     }
+//     // });
+//     // res.status(201).json(author);
+// }));
 
 router.post('/', (req, res, next) => {
     console.log(req.body);
