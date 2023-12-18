@@ -28,23 +28,13 @@ router.get('/:query', asyncHandler(async (req, res) => {
         queryObj.last_name = req.query.last_name;
     }
 
-    // Query the author table
+    // Query the Author table
     let author = await Author.findAll({
         where: queryObj
     });
 
     res.status(200).json(author);
 }));
-
-// router.get('/:id', asyncHandler(async (req, res) => {
-//     let author1 = await Author.findAll({
-//         where: {
-//             id: 1
-//         }
-//     });
-
-//     res.status(200).json(author1);
-// }));
 
 router.post('/', (req, res, next) => {
     console.log(req.body);
