@@ -7,6 +7,9 @@ const express = require('express');
 // Create express server
 const app = express()
 
+// Used to handle connection to localhost
+const cors = require('cors');
+
 // Port number to listen to
 const port = 3001
 
@@ -26,6 +29,7 @@ const syncDB = async () => {
 }
 
 const configureApp = async () => {
+  app.use(cors());
   app.use(express.json());
 
   // Add routes to app
