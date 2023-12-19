@@ -17,7 +17,7 @@ const Anime = db.define('anime', {
         type: Sequelize.STRING,
         allowNull: false
     },
-    genre: {
+    genres: {
         type: Sequelize.ARRAY(Sequelize.STRING)
     },
     rating: {

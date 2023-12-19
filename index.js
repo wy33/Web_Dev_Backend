@@ -8,7 +8,7 @@ const express = require('express');
 const app = express()
 
 // Port number to listen to
-const port = 3000
+const port = 3001
 
 // Import defined express routes in "routes" folder
 const routes = require('./routes');

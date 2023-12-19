@@ -17,7 +17,7 @@ const Manga = db.define('manga', {
         type: Sequelize.STRING,
         allowNull: false
     },
-    genre: {
+    genres: {
         type: Sequelize.ARRAY(Sequelize.STRING)
     },
     rating: {
