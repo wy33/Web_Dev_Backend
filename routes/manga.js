@@ -6,7 +6,7 @@ const router = express.Router();
 
 const Sequelize = require('sequelize');
 
-const { Manga } = require('../database/models');
+const { Manga, Author } = require('../database/models');
 
 router.get('/', asyncHandler(async (req, res) => {
     let manga = await Manga.findAll();
@@ -29,9 +29,6 @@ router.get('/:query', asyncHandler(async (req, res) => {
     if (req.query.hasOwnProperty('rating')) {
         queryObj.rating = req.query.rating;
     }
-    // if (req.query.hasOwnProperty('genre')) {
-    //     queryObj.genre = req.query.genre;
-    // }
     if (req.query.hasOwnProperty('genres')) {
         // Array of genres
         let genres = req.query.genres.split(',');
@@ -39,7 +36,7 @@ router.get('/:query', asyncHandler(async (req, res) => {
         /*  Only entries that satisfy all genres are retrieved
             Example of how to query for multiple genres in the HTTP request:
         
-                localhost:3001/author/query?genres=genre1,genre2,genre3
+                localhost:3001/manga/query?genres=genre1,genre2,genre3
         
             Comma separated values
         */
@@ -48,9 +45,12 @@ router.get('/:query', asyncHandler(async (req, res) => {
         }
     }
 
-    // Query the Author table
+    // Query the Manga table
     let manga = await Manga.findAll({
-        where: queryObj
+        where: queryObj,
+        // A join to Author table, results in an "author" field
+        // containing a JSON value with the model's fields
+        include: [Author]
     });
 
     res.status(200).json(manga);
