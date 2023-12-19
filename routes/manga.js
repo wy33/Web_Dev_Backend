@@ -14,8 +14,6 @@ router.get('/', asyncHandler(async (req, res) => {
 }));
 
 router.get('/:query', asyncHandler(async (req, res) => {
-    console.log(req);
-
     // Declare object that will hold the query
     const queryObj = {};
 
@@ -70,7 +68,6 @@ router.get('/:query', asyncHandler(async (req, res) => {
         }
 */
 router.post('/', (req, res, next) => {
-    console.log(req.body);
     Manga.create(req.body)
         .then(createdManga => res.status(201).json(createdManga))
         .catch(err => next(err));

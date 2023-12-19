@@ -14,8 +14,6 @@ router.get('/', asyncHandler(async (req, res) => {
 }));
 
 router.get('/:query', asyncHandler(async (req, res) => {
-    console.log(req);
-
     // Declare object that will hold the query
     const queryObj = {};
 
@@ -70,7 +68,6 @@ router.get('/:query', asyncHandler(async (req, res) => {
         }
 */
 router.post('/', (req, res, next) => {
-    console.log(req.body);
     Anime.create(req.body)
         .then(createdAnime => res.status(201).json(createdAnime))
         .catch(err => next(err));
