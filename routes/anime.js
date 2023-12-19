@@ -56,10 +56,67 @@ router.get('/:query', asyncHandler(async (req, res) => {
     res.status(200).json(anime);
 }));
 
+/*  HTTP POST URL:
+
+        localhost:3001/anime
+
+    HTTP JSON body ex:
+
+        {
+            "title": "<title>",
+            "rating": <number>,
+            "genres": ["item1", "item2", ...],
+            "authorId": <id>
+        }
+*/
 router.post('/', (req, res, next) => {
     console.log(req.body);
     Anime.create(req.body)
         .then(createdAnime => res.status(201).json(createdAnime))
+        .catch(err => next(err));
+});
+
+/*  HTTP PUT URL:
+
+        localhost:3001/anime/
+
+    Ex: update Anime entry with id = 3
+
+        localhost:3001/anime/3
+    
+    HTTP JSON body ex (update values):
+
+        {
+            "title": "<new_title_update>",
+            "rating": <new_number_update>
+        }
+*/
+router.put('/:id', asyncHandler(async (req, res) => {
+    await Anime.update(req.body, {
+        where: {
+            id: req.params.id
+        }
+    });
+
+    let anime = await Anime.findByPk(req.params.id);
+    res.status(200).json(anime);
+}));
+
+/*  HTTP DELETE URL
+
+        localhost:3001/anime/
+
+    Ex: delete Anime entry with id = 3
+
+        localhost:3001/anime/3
+*/
+router.delete('/:id', (req, res, next) => {
+    Anime.destroy({
+        where: {
+            id: req.params.id
+        }
+    })
+        .then(() => res.status(200).json('Deleted Anime'))
         .catch(err => next(err));
 });
 

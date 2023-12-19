@@ -62,15 +62,15 @@ router.get('/:query', asyncHandler(async (req, res) => {
     res.status(200).json(author);
 }));
 
-/*  HTTP URL:
+/*  HTTP POST URL:
 
         localhost:3001/author
 
     HTTP JSON body ex:
 
         {
-            "first_name": "<first_name>"
-            "last_name": "<last_name>"
+            "first_name": "<first_name>",
+            "last_name": "<last_name>",
             "genres": ["item1", "item2", ...]
         }
 */
@@ -78,6 +78,52 @@ router.post('/', (req, res, next) => {
     console.log(req.body);
     Author.create(req.body)
         .then(createdAuthor => res.status(201).json(createdAuthor))
+        .catch(err => next(err));
+});
+
+/*  HTTP PUT URL:
+
+        localhost:3001/author/
+
+    Ex: update Author entry with id = 3
+
+        localhost:3001/author/3
+    
+    HTTP JSON body ex (update values):
+
+        {
+            "first_name": "<new_name_update>",
+            "genres": ["<new_genre>", "<new_genre>"]
+        }
+
+    Note: genres array is overwritten not appended
+*/
+router.put('/:id', asyncHandler(async (req, res) => {
+    await Author.update(req.body, {
+        where: {
+            id: req.params.id
+        }
+    });
+
+    let author = await Author.findByPk(req.params.id);
+    res.status(200).json(author);
+}));
+
+/*  HTTP DELETE URL
+
+        localhost:3001/author/
+
+    Ex: delete Author entry with id = 3
+
+        localhost:3001/author/3
+*/
+router.delete('/:id', (req, res, next) => {
+    Author.destroy({
+        where: {
+            id: req.params.id
+        }
+    })
+        .then(() => res.status(200).json('Deleted Author'))
         .catch(err => next(err));
 });
 

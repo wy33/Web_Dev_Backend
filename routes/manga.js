@@ -56,10 +56,67 @@ router.get('/:query', asyncHandler(async (req, res) => {
     res.status(200).json(manga);
 }));
 
+/*  HTTP POST URL:
+
+        localhost:3001/manga
+
+    HTTP JSON body ex:
+
+        {
+            "title": "<title>",
+            "rating": <number>,
+            "genres": ["item1", "item2", ...],
+            "authorId": <id>
+        }
+*/
 router.post('/', (req, res, next) => {
     console.log(req.body);
     Manga.create(req.body)
         .then(createdManga => res.status(201).json(createdManga))
+        .catch(err => next(err));
+});
+
+/*  HTTP PUT URL:
+
+        localhost:3001/manga/
+
+    Ex: update Manga entry with id = 3
+
+        localhost:3001/manga/3
+    
+    HTTP JSON body ex (update values):
+
+        {
+            "title": "<new_title_update>",
+            "rating": <new_number_update>
+        }
+*/
+router.put('/:id', asyncHandler(async (req, res) => {
+    await Manga.update(req.body, {
+        where: {
+            id: req.params.id
+        }
+    });
+
+    let manga = await Manga.findByPk(req.params.id);
+    res.status(200).json(manga);
+}));
+
+/*  HTTP DELETE URL
+
+        localhost:3001/manga/
+
+    Ex: delete Manga entry with id = 3
+
+        localhost:3001/manga/3
+*/
+router.delete('/:id', (req, res, next) => {
+    Manga.destroy({
+        where: {
+            id: req.params.id
+        }
+    })
+        .then(() => res.status(200).json('Deleted Manga'))
         .catch(err => next(err));
 });
 

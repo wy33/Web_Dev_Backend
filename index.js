@@ -52,18 +52,6 @@ const bootApp = async () => {
 
 bootApp();
 
-//
-// app.get('/', (req, res) => {
-//   res.send('Hello World! (root)')
-// });
-
-// app.get('/1', (req, res) => {
-//     res.send('Hello World! 1 (top level index.js)')
-//   });
-
-// // Add routes to app
-// app.use('', routes);
-
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 });
