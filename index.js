@@ -28,14 +28,6 @@ const syncDB = async () => {
 const configureApp = async () => {
   app.use(express.json());
 
-  app.get('/', (req, res) => {
-    res.send('Hello World! (root)')
-  });
-  
-  app.get('/1', (req, res) => {
-      res.send('Hello World! 1 (top level index.js)')
-    });
-  
   // Add routes to app
   app.use('', routes);
 }

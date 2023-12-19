@@ -22,8 +22,6 @@ router.get('/', asyncHandler(async (req, res) => {
       localhost:3001/author/query?first_name=Teddy&last_name=Bear
 */
 router.get('/:query', asyncHandler(async (req, res) => {
-    console.log(req);
-
     // Declare object that will hold the query
     const queryObj = {};
 
@@ -75,7 +73,6 @@ router.get('/:query', asyncHandler(async (req, res) => {
         }
 */
 router.post('/', (req, res, next) => {
-    console.log(req.body);
     Author.create(req.body)
         .then(createdAuthor => res.status(201).json(createdAuthor))
         .catch(err => next(err));
