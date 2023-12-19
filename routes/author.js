@@ -19,7 +19,7 @@ router.get('/', asyncHandler(async (req, res) => {
 
     Ex:
 
-      localhost:3001/author/query?first_name=Teddy&last_name=Bear
+      localhost:3001/author/query?name=Ted
 */
 router.get('/:query', asyncHandler(async (req, res) => {
     // Declare object that will hold the query
@@ -30,11 +30,14 @@ router.get('/:query', asyncHandler(async (req, res) => {
     if (req.query.hasOwnProperty('id')) {
         queryObj.id = req.query.id;
     }
-    if (req.query.hasOwnProperty('first_name')) {
-        queryObj.first_name = req.query.first_name;
-    }
-    if (req.query.hasOwnProperty('last_name')) {
-        queryObj.last_name = req.query.last_name;
+    // if (req.query.hasOwnProperty('first_name')) {
+    //     queryObj.first_name = req.query.first_name;
+    // }
+    // if (req.query.hasOwnProperty('last_name')) {
+    //     queryObj.last_name = req.query.last_name;
+    // }
+    if (req.query.hasOwnProperty('name')) {
+        queryObj.name = req.query.name;
     }
     if (req.query.hasOwnProperty('genres')) {
         // Array of genres
@@ -67,8 +70,7 @@ router.get('/:query', asyncHandler(async (req, res) => {
     HTTP JSON body ex:
 
         {
-            "first_name": "<first_name>",
-            "last_name": "<last_name>",
+            "name": "<name>",
             "genres": ["item1", "item2", ...]
         }
 */
@@ -89,7 +91,7 @@ router.post('/', (req, res, next) => {
     HTTP JSON body ex (update values):
 
         {
-            "first_name": "<new_name_update>",
+            "name": "<new_name_update>",
             "genres": ["<new_genre>", "<new_genre>"]
         }
 

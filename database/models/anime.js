@@ -21,7 +21,13 @@ const Anime = db.define('anime', {
         type: Sequelize.ARRAY(Sequelize.STRING)
     },
     rating: {
-        type: Sequelize.SMALLINT
+        type: Sequelize.FLOAT
+    },
+    image: {
+        type: Sequelize.STRING
+    },
+    url: {
+        type: Sequelize.STRING
     }
 });
 

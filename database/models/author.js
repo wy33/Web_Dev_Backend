@@ -13,13 +13,14 @@ const Author = db.define('author', {
         primaryKey: true
         
     },
-    first_name: {
-        type: Sequelize.STRING,
-        allowNull: false
-    },
-    last_name: {
-        type: Sequelize.STRING,
-        allowNull: false
+    // first_name: {
+    //     type: Sequelize.STRING
+    // },
+    // last_name: {
+    //     type: Sequelize.STRING
+    // },
+    name: {
+        type: Sequelize.STRING
     },
     genres: {
         type: Sequelize.ARRAY(Sequelize.STRING)
