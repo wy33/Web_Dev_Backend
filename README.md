@@ -12,7 +12,7 @@
 
 - API (Express, Sequelize, CRUD operations)
   - Routes to add new instances to each model:
-    - https://github.com/wy33/Web_Dev_Backend/blob/ef7ce5066c23ca31d59990a1f110968c76eeb4af/routes/anime.js#L57C1-L74
+    - https://github.com/wy33/Web_Dev_Backend/blob/ef7ce5066c23ca31d59990a1f110968c76eeb4af/routes/anime.js#L57-L74
     - https://github.com/wy33/Web_Dev_Backend/blob/ef7ce5066c23ca31d59990a1f110968c76eeb4af/routes/author.js#L66-L81
     - https://github.com/wy33/Web_Dev_Backend/blob/ef7ce5066c23ca31d59990a1f110968c76eeb4af/routes/manga.js#L57-L74
   - Routes that returns all instances from each model:
